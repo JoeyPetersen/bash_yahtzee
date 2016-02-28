@@ -1,25 +1,42 @@
 #!/bin/bash
 
-rolls=0;
-maxrolls=0;
-d1=0;
-d2=0;
-d3=0;
-d4=0;
-d5=0;
-d6=0;
+# Setup initial variable values
+# -----------------------------
+
+rolls=0
+maxrolls=0
+num_dice=7
+yahtzee=0
+
+for value in $(seq 0 $((num_dice-1)))
+do
+    dice[${value}]=0
+done
+
+# Run in a loop until the user sends a break.
 
 while true; do
-    d1=$((RANDOM%6+1));
-    d2=$((RANDOM%6+1));
-    d3=$((RANDOM%6+1));
-    d4=$((RANDOM%6+1));
-    d5=$((RANDOM%6+1));
-    d6=$((RANDOM%6+1));
+    # Give the dice a roll.
+    for die_num in $(eval echo {0..$((num_dice-1))})
+    do
+        dice[${die_num}]=$((RANDOM%6+1))
+    done
+    
+    echo "Here is what I rolled: ${dice[@]}"
 
-    if [ ${d1} == ${d2} ] && [ ${d2} == ${d3} ] && [ ${d3} == ${d4} ] && [ ${d4} == ${d5} ] && [ ${d5} == ${d6} ]; then
-        echo -n "After ${rolls} rolls, I got a YAHTZEE"'!';
-        echo -e "\t\tHere is what I rolled: ${d1} ${d2} ${d3} ${d4} ${d5} ${d6}";
+    # Check to see if they all match the first die.
+    for y_check in ${dice[@]}
+    do
+        if [ $y_check = ${dice[0]} ]
+        then
+            yahtzee=1
+        else
+            yahtzee=0
+        fi
+    done
+
+    if [ $yahtzee = 1 ]; then
+        echo "After ${rolls} rolls, I got a YAHTZEE"'!';
 
         if [ ${rolls} -gt ${maxrolls} ]; then
             maxrolls=${rolls};
