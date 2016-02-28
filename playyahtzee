@@ -4,9 +4,24 @@
 # -----------------------------
 
 rolls=0
-maxrolls=0
-num_dice=5
+highrolls=0
 yahtzee=0
+
+# If a number of dice was supplied, use that. Default to 1.
+if [ $1 > 0 ]
+then
+    num_dice=$1
+else
+    num_dice=1
+fi
+
+# If a number of rolls was supplied, use that. Default to 1.
+if [ $2 > 0 ]
+then
+    maxrolls=$2
+else
+    maxrolls=1
+fi
 
 for value in $(seq 0 $((num_dice-1)))
 do
@@ -15,7 +30,8 @@ done
 
 # Run in a loop until the user sends a break.
 
-while true; do
+while [ $rolls -lt $maxrolls ]
+do
     # Give the dice a roll.
     for die_num in $(eval echo {0..$((num_dice-1))})
     do
@@ -35,15 +51,7 @@ while true; do
     done
 
     if [ $yahtzee = 1 ]; then
-        echo "After ${rolls} rolls, I got a YAHTZEE"'!';
-
-        if [ ${rolls} -gt ${maxrolls} ]; then
-            maxrolls=${rolls};
-            echo "New high score"'!'" The max is now ${maxrolls}";
-        fi;
-
-        rolls=0;
-    else
-        rolls=$((rolls+1));
+        echo "On roll $((rolls+1)), I got a YAHTZEE"'!';
     fi;
+    rolls=$((rolls+1));
 done
