@@ -8,7 +8,7 @@ highrolls=0
 yahtzee=0
 
 # If a number of dice was supplied, use that. Default to 1.
-if [ $1 > 0 ]
+if [[ $1 > 0 ]]
 then
     num_dice=$1
 else
@@ -16,7 +16,7 @@ else
 fi
 
 # If a number of rolls was supplied, use that. Default to 1.
-if [ $2 > 0 ]
+if [[ $2 > 0 ]]
 then
     maxrolls=$2
 else
