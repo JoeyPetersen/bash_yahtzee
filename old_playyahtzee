@@ -17,10 +17,8 @@ while true; do
     d5=$((RANDOM%6+1));
     d6=$((RANDOM%6+1));
 
-    echo -e "\t\tHere is what I rolled: ${d1} ${d2} ${d3} ${d4} ${d5} ${d6}";
-
     if [ ${d1} == ${d2} ] && [ ${d2} == ${d3} ] && [ ${d3} == ${d4} ] && [ ${d4} == ${d5} ] && [ ${d5} == ${d6} ]; then
-        echo -n "After ${rolls} rolls, I got a YAHTZEE"'!';
+        echo "After ${rolls} rolls, I got a YAHTZEE"'!';
 
         if [ ${rolls} -gt ${maxrolls} ]; then
             maxrolls=${rolls};

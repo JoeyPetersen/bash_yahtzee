@@ -5,7 +5,7 @@
 
 rolls=0
 maxrolls=0
-num_dice=7
+num_dice=5
 yahtzee=0
 
 for value in $(seq 0 $((num_dice-1)))
@@ -22,8 +22,6 @@ while true; do
         dice[${die_num}]=$((RANDOM%6+1))
     done
     
-    echo "Here is what I rolled: ${dice[@]}"
-
     # Check to see if they all match the first die.
     for y_check in ${dice[@]}
     do
@@ -32,6 +30,7 @@ while true; do
             yahtzee=1
         else
             yahtzee=0
+            break
         fi
     done
 
